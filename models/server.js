@@ -1,5 +1,8 @@
 const express = require('express')
 const cors = require('cors');
+const morgan = require('morgan');
+
+const { dbConnection } = require('../database/connection');
 
 class Server {
 
@@ -7,6 +10,10 @@ class Server {
         this.app = express();
         this.port = process.env.PORT;
         this.usuariosPath = '/api/usuarios';
+
+        // Conexión a la base de datos
+        this.conectarDB();
+
         // Middlewares
         this.middlewares();
 
@@ -14,21 +21,27 @@ class Server {
         this.routes();
     }
 
+    async conectarDB() {
+        await dbConnection();
+    }
+
     middlewares() {
         // Cors
-        this.app.use( cors() ); 
+        this.app.use(cors());
 
+        // Morgan
+        this.app.use(morgan('dev'));
         // Lectura y parseo del body
-        this.app.use( express.json());
+        this.app.use(express.json());
 
         // Directorio público
-        this.app.use( express.static('public'));
+        this.app.use(express.static('public'));
     }
 
     routes() {
-       this.app.use('/api/usuarios', require('../routes/usuarios.routes'));
+        this.app.use('/api/usuarios', require('../routes/usuarios.routes'));
     }
-    
+
     listen() {
 
         this.app.listen(this.port, () => {
