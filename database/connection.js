@@ -4,7 +4,7 @@ require('dotenv').config;
 
 const dbConnection = async () => {
     try {
-        mongoose.connect(process.env.MONGODB_LOCAL, {
+        mongoose.connect(process.env.MONGODB_ATLAS, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
             useCreateIndex: true,
