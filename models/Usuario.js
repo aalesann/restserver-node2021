@@ -45,7 +45,8 @@ usuarioSchema.methods.matchPassword = async function (password) {
 };
 
 usuarioSchema.methods.toJSON = function() {
-    const { __v, password, ...usuario } = this.toObject();
+    const { __v, password, _id, ...usuario } = this.toObject();
+    usuario.uid = _id
     return usuario;
 }
 

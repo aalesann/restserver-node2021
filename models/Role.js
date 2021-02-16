@@ -1,5 +1,4 @@
 const { model, Schema } = require('mongoose');
-const bcryptjs = require('bcryptjs');
 
 const roleSchema = new Schema({
    rol: {
