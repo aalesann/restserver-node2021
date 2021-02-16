@@ -56,7 +56,7 @@ const googleSignin = async (req, res = response) => {
 
         // Generar referencia al correo
         let usuario = await Usuario.findOne( { correo });
-
+        
         if(!usuario) {
             // Tengo que crearlo
             const data = {
@@ -86,7 +86,7 @@ const googleSignin = async (req, res = response) => {
             usuario,
             token
         });
-        
+
     } catch (error) {
 
         res.status(400).json({
